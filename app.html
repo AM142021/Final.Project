@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the Circle Game</title>
+  <link rel="stylesheet" href="css/customestyles.css">
+</head>
+<body>
+  <header>
+    <h1 style="margin: 0; position: absolute; top: 0; left: 0; z-index: 9999; display: flex; padding: 15px; background-color: #000000; color: white;">Catch The Circle</h1>
+    <nav style="position: absolute; top: 0; right: 0; z-index: 9999;">
+        <ul style="list-style: none; display: flex; gap: 20px; padding: 15px; background: #000000; margin: 0;">
+            <li><a href="index.html" style="color: white; text-decoration: none;">Home</a></li>
+            <li><a href="resume.html" style="color: white; text-decoration: none;">Resume</a></li>
+            <li><a href="scratch.html" style="color: white; text-decoration: none;">From Scratch</a></li>
+            <li><a href="app.html" style="color: white; text-decoration: none;">AI App</a></li>
+        </ul>
+    </nav>
+  </header>
+  <div id="gameArea"></div>
+  <div id="scoreBoard">Score: 0 | Time: 30</div>
+  <button id="startBtn">Start Game</button>
+
+  <script>
+    const gameArea = document.getElementById("gameArea");
+    const scoreBoard = document.getElementById("scoreBoard");
+    const startBtn = document.getElementById("startBtn");
+
+    let score = 0;
+    let timeLeft = 30;
+    let gameInterval, timerInterval;
+
+    function createCircle() {
+      const circle = document.createElement("div");
+      circle.classList.add("circle");
+
+      const maxX = window.innerWidth - 60;
+      const maxY = window.innerHeight - 60;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      circle.style.left = randomX + "px";
+      circle.style.top = randomY + "px";
+
+      circle.addEventListener("click", () => {
+        score++;
+        scoreBoard.textContent = `Score: ${score} | Time: ${timeLeft}`;
+        circle.remove();
+      });
+
+      gameArea.appendChild(circle);
+
+      // Remove circle if not clicked in 1.5s
+      setTimeout(() => {
+        if (gameArea.contains(circle)) {
+          circle.remove();
+        }
+      }, 1500);
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 30;
+      scoreBoard.textContent = `Score: ${score} | Time: ${timeLeft}`;
+      startBtn.disabled = true;
+
+      gameInterval = setInterval(createCircle, 1000);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        scoreBoard.textContent = `Score: ${score} | Time: ${timeLeft}`;
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+    }
+
+    function endGame() {
+      clearInterval(gameInterval);
+      clearInterval(timerInterval);
+      alert(`⏰ Time's up! Your final score is ${score}.`);
+      startBtn.disabled = false;
+    }
+
+    startBtn.addEventListener("click", startGame);
+  </script>
+</body>
+</html>

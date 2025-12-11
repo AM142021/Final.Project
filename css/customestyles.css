@@ -1,0 +1,56 @@
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #410a0a, #6b3939);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    #gameArea {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .circle {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #8d4b4b;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .circle:hover {
+      transform: scale(1.2);
+    }
+    #scoreBoard {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    #startBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: #b05c5c;
+      color: #000000;
+      cursor: pointer;
+    }
+    #startBtn:hover {
+      background: #b05c5c;
+    }
